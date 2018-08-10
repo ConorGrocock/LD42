@@ -11,7 +11,7 @@ public class World : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		worldObjects = generate(worldWidth, worldHeight, Resources.LoadAll<GameObject>("Tiles"));
+		worldObjects = generate(worldWidth, worldHeight, Resources.LoadAll<GameObject>("Prefabs/Tiles"));
 	}
 
 	public GameObject[,] generate(int width, int height, GameObject[] tiles)
