@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 	private float ammoPerTile = 5f;
 	
 	private TileType chosenProjectile = TileType.Grey;
-	public GameObject projectile;
+	public GameObject[] projectiles;
 	public Transform projectileParent;
 	
 	
@@ -58,19 +58,18 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	private void FireProjectile(Vector3 mousePosition, TileType tileType)
+	private void FireProjectile(Vector3 mousePosition, TileType projectileType)
 	{
-		GameObject newProjectile = Instantiate(projectile);
+		GameObject newProjectile = Instantiate(projectiles[(int)projectileType]);
 		newProjectile.transform.position = transform.position + transform.up *1f;
 		newProjectile.SetActive(true);
 		newProjectile.transform.parent = projectileParent;
 		Projectile proj = newProjectile.GetComponent<Projectile>();
-		proj.Type = tileType;
 		Vector3 direction = (mousePosition - transform.position).normalized;
 		direction.z = 0;
 		proj.Direction = direction;
 
-		ammoType[tileType]--;
+		ammoType[projectileType]--;
 		ammo--;
 	}
 }
