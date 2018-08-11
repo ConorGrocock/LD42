@@ -46,6 +46,8 @@ public class World : MonoBehaviour
 
 	public GameObject getTileFromPosition(int x, int y)
 	{
+		if (x > (worldWidth / 2) || x < -(worldWidth / 2)) return null;
+		if (y > (worldHeight / 2) || y < -(worldHeight / 2)) return null;
 		return worldObjects[(worldWidth/2)-x,(worldHeight/2)-y];
 	}
 
