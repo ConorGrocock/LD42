@@ -87,5 +87,6 @@ public class Player : MonoBehaviour
 		ammoType[projectileType]--;
 		ammo--;
 		shotCooldown = maxShotCooldown;
+		Debug.Log(ammoType);
 	}
 }
