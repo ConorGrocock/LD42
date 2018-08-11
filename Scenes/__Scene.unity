@@ -170,6 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 922298722}
   - component: {fileID: 922298721}
+  - component: {fileID: 922298723}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -188,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d472c509397de468a4486483aa57e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 1267076138152872, guid: 93339acf4e811df448e98f6fa5896b2d, type: 2}
 --- !u!4 &922298722
 Transform:
   m_ObjectHideFlags: 0
@@ -201,6 +203,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &922298723
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 922298720}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1545829039
 GameObject:
   m_ObjectHideFlags: 0
