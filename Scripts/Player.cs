@@ -64,5 +64,8 @@ public class Player : MonoBehaviour
 		Vector3 direction = (mousePosition - transform.position).normalized;
 		direction.z = 0;
 		proj.Direction = direction;
+
+		ammoType[tileType]--;
+		ammo--;
 	}
 }
