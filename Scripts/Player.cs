@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
 	private TileType chosenProjectile = TileType.Grey;
 	public GameObject[] projectiles;
 	public Transform projectileParent;
+
+	public float maxShotCooldown = 0.2f;
+	private float shotCooldown = 0f;
 	
 	
 	// Use this for initialization
@@ -32,6 +35,7 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		shotCooldown -= Time.deltaTime;
 		if (Input.GetMouseButton(0))
 		{
 			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -73,5 +77,6 @@ public class Player : MonoBehaviour
 
 		ammoType[projectileType]--;
 		ammo--;
+		shotCooldown = maxShotCooldown;
 	}
 }
