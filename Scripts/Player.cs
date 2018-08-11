@@ -30,11 +30,13 @@ public class Player : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (Input.GetMouseButton(0))
 		{
 			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			FireProjectile(mousePosition, chosenProjectile);
+			if(shotCooldown <= 0 && ammoType[chosenProjectile] > 0 && ammo > 0)
+				FireProjectile(mousePosition, chosenProjectile);
 		}
 
 		if (Input.GetMouseButton(1) && ammo < maxAmmo)
