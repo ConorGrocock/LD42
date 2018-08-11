@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
 	public float maxShotCooldown = 0.2f;
 	private float shotCooldown = 0f;
+
+	public float speed = 0.1f;
 	
 	
 	// Use this for initialization
@@ -36,6 +38,13 @@ public class Player : MonoBehaviour
 	void Update ()
 	{
 		shotCooldown -= Time.deltaTime;
+		
+		var position = transform.position;
+		position.x += Input.GetAxis("Horizontal") * speed;
+		position.y += Input.GetAxis("Vertical") * speed;
+		if(gc.world.getTileFromPosition(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)).active)
+			transform.position = position;
+		
 		if (Input.GetMouseButton(0))
 		{
 			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -52,7 +61,7 @@ public class Player : MonoBehaviour
 			{
 				ammoType[tile.type] += ammoPerTile;
 				ammo += ammoPerTile;
-				Destroy(go);
+				go.SetActive(false);
 			}
 		}
 
