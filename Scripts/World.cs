@@ -35,11 +35,18 @@ public class World : MonoBehaviour
 			{
 				GameObject obj = Instantiate(getRandomTile(tiles));
 				obj.transform.position = new Vector3((width/2)-i,(height/2)-j,1);
+				obj.transform.parent = this.gameObject.transform;
+				obj.name = "X:" + i + " Y: " + j;
 				objects[i, j] = obj;
 			}
 		}
 
-		return null;
+		return objects;
+	}
+
+	public GameObject getTileFromPosition(int x, int y)
+	{
+		return worldObjects[(worldWidth/2)-x,(worldHeight/2)-y];
 	}
 
 	// Update is called once per frame
