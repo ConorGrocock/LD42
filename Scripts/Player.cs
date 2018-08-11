@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
         var position = transform.position;
         float axisHorizontal = Input.GetAxisRaw("Horizontal");
         float axisVertical = Input.GetAxisRaw("Vertical");
-        position.x += axisHorizontal * speed;
-        position.y += axisVertical * speed;
+        position.x += axisHorizontal * speed * Time.deltaTime;
+        position.y += axisVertical * speed * Time.deltaTime;
         if (gc.world.getTileFromPosition(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)).active)
             transform.position = position;
 
