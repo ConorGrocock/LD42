@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 	private float maxAmmoPerType = 25f;
 	private float ammoPerTile = 5f;
 	
-	private TileType chosenProjectile;
+	private TileType chosenProjectile = TileType.Grey;
 	public GameObject projectile;
 	public Transform projectileParent;
 	
@@ -49,8 +49,13 @@ public class Player : MonoBehaviour
 				Destroy(go);
 			}
 		}
-		
-		
+
+		if (Input.mouseScrollDelta.y != 0)
+		{
+			chosenProjectile += (int)Input.mouseScrollDelta.y;
+			if ((int)chosenProjectile >= Enum.GetValues(typeof(TileType)).Length) chosenProjectile = 0;
+			if (chosenProjectile < 0) chosenProjectile = (TileType)Enum.GetValues(typeof(TileType)).Length - 1;
+		}
 	}
 
 	private void FireProjectile(Vector3 mousePosition, TileType tileType)
