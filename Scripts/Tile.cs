@@ -16,6 +16,8 @@ public enum TileType
 public class Tile : MonoBehaviour
 {
     public TileType type;
+    public string typeName;
+    public Sprite tileSprite;
 
     // Use this for initialization
     void Start()

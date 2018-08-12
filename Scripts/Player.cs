@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -32,6 +33,19 @@ public class Player : MonoBehaviour
     public Action<float> OnDamageTaken;
     public Action OnDeath;
 
+    public Slider ammoSlider;
+    public TextMeshProUGUI ammoRemainingText;
+
+    private int lives = 3;
+    public GameObject livesPanel;
+    public Sprite fullHeartSprite;
+    public Sprite emptyHeartSprite;
+    private Image[] livesImages;
+    private List<TileType> seenTypes;
+
+    public Unlock unlockScript;
+    public float unlockUIOpenTime = 0.5f;
+
 //	Use this for initialization
     void Start()
     {
@@ -42,6 +56,8 @@ public class Player : MonoBehaviour
         {
             ammoType.Add(t, 0f);
         }
+        livesImages = livesPanel.GetComponentsInChildren<Image>();
+        seenTypes = new List<TileType>();
         
         OnDeath += death;
     }
@@ -121,6 +137,14 @@ public class Player : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (shotCooldown <= 0 && ammoType[chosenProjectile] > 0 && ammo > 0)
                 FireProjectile(mousePosition, chosenProjectile);
+        }
+
+        ammoSlider.value = ammo / maxAmmo;
+        ammoRemainingText.text = ammo + " / " + maxAmmo;
+
+        for (int i = 0; i < livesImages.Length; i++)
+        {
+            livesImages[i].sprite = (lives - i >= 0) ? fullHeartSprite : emptyHeartSprite;
         }
 
         if (Input.GetMouseButton(1) && ammo < maxAmmo)
