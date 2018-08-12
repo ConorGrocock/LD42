@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class World : MonoBehaviour
 {
-	private GameObject[,] worldObjects;
-	public GameObject[] tilePalette;
-	public int worldWidth;
-	public int worldHeight;
+    private GameObject[,] worldObjects;
+    public GameObject[] tilePalette;
+    public int worldWidth;
+    public int worldHeight;
 
 	public Transform tilesParent;
 
@@ -17,16 +17,16 @@ public class World : MonoBehaviour
 		worldObjects = generate(worldWidth, worldHeight, tilePalette);
 	}
 
-	public GameObject getRandomTile(GameObject[] tiles)
-	{
-		int index = Random.Range(0, 100);
-		if (index < 80) return tiles[0];
-		else
-		{
-			index = Random.Range(1, tiles.Length);
-			return tiles[index];
-		}
-	}
+    public GameObject getRandomTile(GameObject[] tiles)
+    {
+        int index = Random.Range(0, 100);
+        if (index < 80) return tiles[0];
+        else
+        {
+            index = Random.Range(1, tiles.Length);
+            return tiles[index];
+        }
+    }
 
 	public GameObject[,] generate(int width, int height, GameObject[] tiles)
 	{
@@ -43,15 +43,17 @@ public class World : MonoBehaviour
 			}
 		}
 
-		return objects;
-	}
+        return objects;
+    }
 
-	public GameObject getTileFromPosition(int x, int y)
-	{
-		if (x > (worldWidth / 2) || x < -(worldWidth / 2)) return null;
-		if (y > (worldHeight / 2) || y < -(worldHeight / 2)) return null;
-		return worldObjects[(worldWidth/2)-x,(worldHeight/2)-y];
-	}
+    public GameObject getTileFromPosition(int x, int y)
+    {
+        int arrayX = (worldWidth / 2) - x;
+        int arrayY = (worldHeight / 2) - y;
+        if (arrayX < 0 || arrayX >= worldObjects.GetLength(0)) return null;
+        if (arrayY < 0 || arrayY >= worldObjects.GetLength(1)) return null;
+        return worldObjects[arrayX, arrayY];
+    }
 
 	// Update is called once per frame
 	void Update () {

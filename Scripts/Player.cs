@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float maxShotCooldown = 0.2f;
     private float shotCooldown = 0f;
 
-    public float speed = 0.04f;
+    public float speed = 0.1f;
 
 
 //	Use this for initialization
