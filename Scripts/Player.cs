@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -26,9 +27,27 @@ public class Player : MonoBehaviour
 
     public float speed = 0.1f;
 
-//    public Action<int> OnAmmoCountChanged;
-//    public Action<TileType> OnAmmoTypeChanged;
-//    public Action<float> OnDamageTaken;
+    public Slider ammoSlider;
+    public TextMeshProUGUI ammoRemainingText;
+
+    private float lives = 3;
+    public float maxLives = 3;
+
+    public GameObject livesPanel;
+    public Sprite fullHeartSprite;
+    public Sprite emptyHeartSprite;
+    public Slider healthSlider;
+
+    private Image[] livesImages;
+
+    private List<TileType> seenTypes;
+
+    public Unlock unlockScript;
+    public float unlockUIOpenTime = 0.5f;
+
+    //    public Action<int> OnAmmoCountChanged;
+    //    public Action<TileType> OnAmmoTypeChanged;
+    //    public Action<float> OnDamageTaken;
     public Action OnDeath;
 
 //	Use this for initialization
@@ -37,12 +56,16 @@ public class Player : MonoBehaviour
         gc = GameObject.Find("GameController").GetComponent<GameController>();
         ammoType = new Dictionary<TileType, float>();
         health = maxHealth;
+
         foreach (TileType t in Enum.GetValues(typeof(TileType)))
         {
             ammoType.Add(t, 0f);
         }
         
         OnDeath += death;
+
+        livesImages = livesPanel.GetComponentsInChildren<Image>();
+        seenTypes = new List<TileType>();
     }
 
     GameObject getTile(Vector3 position, float offsetX, float offsetY)
@@ -127,6 +150,16 @@ public class Player : MonoBehaviour
             MineTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
+        ammoSlider.value = ammo / maxAmmo;
+        ammoRemainingText.text = ammo + " / " + maxAmmo;
+
+        for (int i = 0; i < livesImages.Length; i++)
+        {
+            livesImages[i].sprite = (lives - i >= 0) ? fullHeartSprite : emptyHeartSprite;
+        }
+
+        healthSlider.value = health / maxHealth;
+
         if (Input.mouseScrollDelta.y != 0)
         {
             chosenProjectile += (int) Input.mouseScrollDelta.y;
@@ -146,8 +179,14 @@ public class Player : MonoBehaviour
         {
             ammoType[tile.type] += ammoPerTile;
             go.SetActive(false);
-            
+
             //if(tile.type == chosenProjectile) OnAmmoCountChanged((int) ammoType[chosenProjectile]);
+
+            if (!seenTypes.Contains(tile.type))
+            {
+                seenTypes.Add(tile.type);
+                unlockScript.OpenUnlockUI(unlockUIOpenTime, tile.typeName, tile.tileSprite);
+            }
         }
     }
 
@@ -182,7 +221,15 @@ public class Player : MonoBehaviour
 
         Destroy(proj.gameObject);
         //OnDamageTaken(health);
-        if (health <= 0) OnDeath();
+        if (health <= 0)
+        {
+            lives--;
+
+            if (lives == 0)
+                OnDeath();
+            else
+                health = maxHealth;
+        }
     }
 
     void death()

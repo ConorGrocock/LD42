@@ -18,6 +18,7 @@ public class Tile : MonoBehaviour
     public TileType type;
     public string typeName;
     public Sprite tileSprite;
+    public Color ammoColour;
 
     // Use this for initialization
     void Start()
