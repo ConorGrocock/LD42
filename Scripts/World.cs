@@ -38,7 +38,6 @@ public class World : MonoBehaviour
                 GameObject obj = Instantiate(getRandomTile(tiles));
                 obj.transform.position = new Vector3((width / 2) - i, (height / 2) - j, 1);
                 obj.transform.parent = tilesParent;
-                obj.transform.Rotate(0, 0, 90 * Random.Range(0, 3));
                 obj.name = "X:" + i + " Y: " + j;
                 objects[i, j] = obj;
             }
