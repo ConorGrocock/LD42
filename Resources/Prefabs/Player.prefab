@@ -167,7 +167,9 @@ MonoBehaviour:
   - {fileID: 1868488417125062, guid: d5a4e96a7ddb1e742a6848deb9fc392e, type: 2}
   projectileParent: {fileID: 0}
   maxShotCooldown: 0.2
-  speed: 0.1
+  speed: 10
+  ammoTypeFont: {fileID: 0}
+  curremtAmmoFont: []
 --- !u!212 &212844974531539348
 SpriteRenderer:
   m_ObjectHideFlags: 1

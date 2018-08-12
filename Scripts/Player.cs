@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -21,6 +22,9 @@ public class Player : MonoBehaviour
     private float shotCooldown = 0f;
 
     public float speed = 0.1f;
+
+    public TextMeshProUGUI ammoTypeFont;
+    public TextMeshProUGUI[] curremtAmmoFont;
 
 
 //	Use this for initialization
@@ -79,13 +83,14 @@ public class Player : MonoBehaviour
     private void FireProjectile(Vector3 mousePosition, TileType projectileType)
     {
         GameObject newProjectile = Instantiate(projectiles[(int) projectileType]);
-        newProjectile.transform.position = transform.position + transform.up * 1f;
+        newProjectile.transform.position = transform.position;
         newProjectile.SetActive(true);
         newProjectile.transform.parent = projectileParent;
         Projectile proj = newProjectile.GetComponent<Projectile>();
         Vector3 direction = (mousePosition - transform.position).normalized;
         direction.z = 0;
         proj.Direction = direction;
+        proj.firedBy = Team.Player;
 
         ammoType[projectileType]--;
         ammo--;
