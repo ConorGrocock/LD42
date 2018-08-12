@@ -63,7 +63,7 @@ public class World : MonoBehaviour
 
     public Vector3 getRandomPosition()
     {
-        return new Vector3((worldWidth / 2) - Random.RandomRange(0, worldWidth),
-            (worldHeight / 2) - Random.RandomRange(0, worldHeight));
+        return new Vector3((worldWidth / 2) - Random.Range(0, worldWidth),
+            (worldHeight / 2) - Random.Range(0, worldHeight));
     }
 }
