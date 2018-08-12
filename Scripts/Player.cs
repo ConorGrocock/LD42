@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 {
     private GameController gc;
 
+    public float maxHealth = 10f;
+    private float health;
     private float ammo = 0f;
     private float maxAmmo = 150f;
     private Dictionary<TileType, float> ammoType;
@@ -25,19 +27,23 @@ public class Player : MonoBehaviour
 
     public float speed = 0.1f;
 
-    public TextMeshProUGUI ammoTypeFont;
-    public TextMeshProUGUI[] curremtAmmoFont;
-
+    public Action<int> OnAmmoCountChanged;
+    public Action<TileType> OnAmmoTypeChanged;
+    public Action<float> OnDamageTaken;
+    public Action OnDeath;
 
 //	Use this for initialization
     void Start()
     {
         gc = GameObject.Find("GameController").GetComponent<GameController>();
         ammoType = new Dictionary<TileType, float>();
+        health = maxHealth;
         foreach (TileType t in Enum.GetValues(typeof(TileType)))
         {
             ammoType.Add(t, 0f);
         }
+        
+        OnDeath += death;
     }
 
     GameObject getTile(Vector3 position, float offsetX, float offsetY)
@@ -119,16 +125,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButton(1) && ammo < maxAmmo)
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject go =
-                gc.world.getTileFromPosition(Mathf.RoundToInt(mousePosition.x), Mathf.RoundToInt(mousePosition.y));
-            Tile tile = go.GetComponent<Tile>();
-            if (tile.type != TileType.Grey && ammoType[tile.type] < maxAmmoPerType)
-            {
-                ammoType[tile.type] += ammoPerTile;
-                ammo += ammoPerTile;
-                go.SetActive(false);
-            }
+            MineTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
         if (Input.mouseScrollDelta.y != 0)
@@ -136,6 +133,23 @@ public class Player : MonoBehaviour
             chosenProjectile += (int) Input.mouseScrollDelta.y;
             if ((int) chosenProjectile >= Enum.GetValues(typeof(TileType)).Length) chosenProjectile = 0;
             if (chosenProjectile < 0) chosenProjectile = (TileType) Enum.GetValues(typeof(TileType)).Length - 1;
+            
+            OnAmmoTypeChanged(chosenProjectile);
+        }
+    }
+
+    private void MineTile(Vector3 mousePosition)
+    {
+        GameObject go =
+            gc.world.getTileFromPosition(Mathf.RoundToInt(mousePosition.x), Mathf.RoundToInt(mousePosition.y));
+        Tile tile = go.GetComponent<Tile>();
+        if (ammoType[tile.type] + ammoPerTile <= maxAmmoPerType && tile.type == chosenProjectile)
+        {
+            ammoType[tile.type] += ammoPerTile;
+            ammo += ammoPerTile;
+            go.SetActive(false);
+            
+            if(tile.type == chosenProjectile) OnAmmoCountChanged((int) ammoType[chosenProjectile]);
         }
     }
 
@@ -154,5 +168,28 @@ public class Player : MonoBehaviour
         ammoType[projectileType]--;
         ammo--;
         shotCooldown = maxShotCooldown;
+        OnAmmoCountChanged((int) ammoType[projectileType]);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.transform.parent == null) return;
+        if (other.gameObject.transform.parent.gameObject.GetComponent<Projectile>() == null) return;
+
+        Projectile proj = other.gameObject.transform.parent.gameObject.GetComponent<Projectile>();
+        if (proj.firedBy == Team.Player) return;
+
+        Debug.Log(health);
+        health = health - proj.damage;
+        Debug.Log(health);
+
+        Destroy(proj.gameObject);
+        OnDamageTaken(health);
+        if (health <= 0) OnDeath();
+    }
+
+    void death()
+    {
+        Time.timeScale = 0;
     }
 }

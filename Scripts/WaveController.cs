@@ -42,8 +42,6 @@ public class WaveController : MonoBehaviour
                     enemiesList.Add(enemy);
                 }
 
-                Debug.Log(enemiesList.Count.ToString());
-
                 if (enemiesList.Count >= enemiesPerWave)
                 {
                     waveSpawningComplete = true;

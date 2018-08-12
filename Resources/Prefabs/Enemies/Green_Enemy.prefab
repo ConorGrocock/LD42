@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  maxHealth: 10
+  maxHealth: 20
   speed: 2
   playerDistance: 4
   maxShotCooldown: 0.4
