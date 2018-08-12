@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float maxShotCooldown = 0.2f;
     private float shotCooldown = 0f;
 
-    public float speed = 0.04f;
+    public float speed = 0.1f;
 
 
 //	Use this for initialization
@@ -44,7 +44,8 @@ public class Player : MonoBehaviour
         float axisVertical = Input.GetAxisRaw("Vertical");
         position.x += axisHorizontal * speed;
         position.y += axisVertical * speed;
-        if (gc.world.getTileFromPosition(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)).active)
+        GameObject posTile = gc.world.getTileFromPosition(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y));
+        if (posTile != null && posTile.active)
             transform.position = position;
 
         if (Input.GetMouseButton(0))
