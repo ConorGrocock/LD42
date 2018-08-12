@@ -215,9 +215,7 @@ public class Player : MonoBehaviour
         Projectile proj = other.gameObject.transform.parent.gameObject.GetComponent<Projectile>();
         if (proj.firedBy == Team.Player) return;
 
-        Debug.Log(health);
         health = health - proj.damage;
-        Debug.Log(health);
 
         Destroy(proj.gameObject);
         //OnDamageTaken(health);
