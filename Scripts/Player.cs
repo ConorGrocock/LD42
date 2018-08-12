@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 
@@ -38,18 +40,75 @@ public class Player : MonoBehaviour
         }
     }
 
+    GameObject getTile(Vector3 position, float offsetX, float offsetY)
+    {
+        return gc.world.getTileFromPosition(Mathf.RoundToInt(position.x + offsetX),
+            Mathf.RoundToInt(position.y + offsetY));
+    }
+
+    Rect getRectangle(GameObject go)
+    {
+        Vector3 pos = go.transform.position;
+        Bounds bounds = go.GetComponentInChildren<SpriteRenderer>().bounds;
+        return new Rect(pos.x, pos.y, bounds.size.x, bounds.size.y);
+    }
+
+    //Returns the new position
+    Vector3 checkCollision(Vector3 currentPosition, float padding, Vector3 oldPosition)
+    {
+        GameObject tile;
+        tile = getTile(oldPosition, 0, 0);
+        if (tile == null || !tile.active)
+            return
+                oldPosition +
+                Vector3.right; //Util.getNearestPointInPerimeter(getRectangle(tile), oldPosition.x, oldPosition.y);
+        tile = getTile(currentPosition, 0, 0);
+        if (tile == null || !tile.active)
+            return oldPosition;
+        tile = getTile(currentPosition, padding, 0);
+        if (tile == null || !tile.active)
+        {
+            oldPosition.y = currentPosition.y;
+            return oldPosition;
+        }
+
+        tile = getTile(currentPosition, -padding, 0);
+        if (tile == null || !tile.active)
+        {
+            oldPosition.y = currentPosition.y;
+            return oldPosition;
+        }
+
+        tile = getTile(currentPosition, 0, padding);
+        if (tile == null || !tile.active)
+        {
+            oldPosition.x = currentPosition.x;
+            return oldPosition;
+        }
+
+        tile = getTile(currentPosition, 0, -padding);
+        if (tile == null || !tile.active)
+        {
+            oldPosition.x = currentPosition.x;
+            return oldPosition;
+        }
+
+        return currentPosition;
+    }
+
     // Update is called once per frame
     void Update()
     {
         shotCooldown -= Time.deltaTime;
 
+        var oldPos = transform.position;
         var position = transform.position;
         float axisHorizontal = Input.GetAxisRaw("Horizontal");
         float axisVertical = Input.GetAxisRaw("Vertical");
         position.x += axisHorizontal * speed * Time.deltaTime;
         position.y += axisVertical * speed * Time.deltaTime;
-        if (gc.world.getTileFromPosition(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)).active)
-            transform.position = position;
+
+        transform.position = checkCollision(position, 0.3f, oldPos);
 
         if (Input.GetMouseButton(0))
         {
@@ -64,7 +123,7 @@ public class Player : MonoBehaviour
             GameObject go =
                 gc.world.getTileFromPosition(Mathf.RoundToInt(mousePosition.x), Mathf.RoundToInt(mousePosition.y));
             Tile tile = go.GetComponent<Tile>();
-            if (ammoType[tile.type] < maxAmmoPerType)
+            if (tile.type != TileType.Grey && ammoType[tile.type] < maxAmmoPerType)
             {
                 ammoType[tile.type] += ammoPerTile;
                 ammo += ammoPerTile;

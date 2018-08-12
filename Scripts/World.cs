@@ -9,13 +9,13 @@ public class World : MonoBehaviour
     public int worldWidth;
     public int worldHeight;
 
-	public Transform tilesParent;
+    public Transform tilesParent;
 
-	// Use this for initialization
-	void Start ()
-	{
-		worldObjects = generate(worldWidth, worldHeight, tilePalette);
-	}
+    // Use this for initialization
+    void Start()
+    {
+        worldObjects = generate(worldWidth, worldHeight, tilePalette);
+    }
 
     public GameObject getRandomTile(GameObject[] tiles)
     {
@@ -28,20 +28,21 @@ public class World : MonoBehaviour
         }
     }
 
-	public GameObject[,] generate(int width, int height, GameObject[] tiles)
-	{
-		GameObject[,] objects = new GameObject[width,height]; 
-		for (int i = 0; i < width; i++)
-		{
-			for (int j = 0; j < height; j++)
-			{
-				GameObject obj = Instantiate(getRandomTile(tiles));
-				obj.transform.position = new Vector3((width/2)-i,(height/2)-j,1);
-				obj.transform.parent = tilesParent;
-				obj.name = "X:" + i + " Y: " + j;
-				objects[i, j] = obj;
-			}
-		}
+    public GameObject[,] generate(int width, int height, GameObject[] tiles)
+    {
+        GameObject[,] objects = new GameObject[width, height];
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                GameObject obj = Instantiate(getRandomTile(tiles));
+                obj.transform.position = new Vector3((width / 2) - i, (height / 2) - j, 1);
+                obj.transform.parent = tilesParent;
+                obj.transform.Rotate(0, 0, 90 * Random.Range(0, 3));
+                obj.name = "X:" + i + " Y: " + j;
+                objects[i, j] = obj;
+            }
+        }
 
         return objects;
     }
@@ -55,13 +56,14 @@ public class World : MonoBehaviour
         return worldObjects[arrayX, arrayY];
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Update is called once per frame
+    void Update()
+    {
+    }
 
-	public Vector3 getRandomPosition()
-	{
-		return new Vector3((worldWidth/2)-Random.RandomRange(0, worldWidth),(worldHeight/2)-Random.RandomRange(0, worldHeight));
-	}
+    public Vector3 getRandomPosition()
+    {
+        return new Vector3((worldWidth / 2) - Random.RandomRange(0, worldWidth),
+            (worldHeight / 2) - Random.RandomRange(0, worldHeight));
+    }
 }
