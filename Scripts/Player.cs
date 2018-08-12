@@ -12,10 +12,9 @@ public class Player : MonoBehaviour
 
     public float maxHealth = 10f;
     private float health;
-    private float ammo = 0f;
     private float maxAmmo = 150f;
     private Dictionary<TileType, float> ammoType;
-    private float maxAmmoPerType = 25f;
+    private float maxAmmoPerType = 100f;
     private float ammoPerTile = 5f;
 
     private TileType chosenProjectile = TileType.Grey;
@@ -119,11 +118,11 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (shotCooldown <= 0 && ammoType[chosenProjectile] > 0 && ammo > 0)
+            if (shotCooldown <= 0 && ammoType[chosenProjectile] > 0)
                 FireProjectile(mousePosition, chosenProjectile);
         }
 
-        if (Input.GetMouseButton(1) && ammo < maxAmmo)
+        if (Input.GetMouseButton(1))
         {
             MineTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
@@ -146,7 +145,6 @@ public class Player : MonoBehaviour
         if (ammoType[tile.type] + ammoPerTile <= maxAmmoPerType && tile.type == chosenProjectile)
         {
             ammoType[tile.type] += ammoPerTile;
-            ammo += ammoPerTile;
             go.SetActive(false);
             
             //if(tile.type == chosenProjectile) OnAmmoCountChanged((int) ammoType[chosenProjectile]);
@@ -166,7 +164,6 @@ public class Player : MonoBehaviour
         proj.firedBy = Team.Player;
 
         ammoType[projectileType]--;
-        ammo--;
         shotCooldown = maxShotCooldown;
         //OnAmmoCountChanged((int) ammoType[projectileType]);
     }
