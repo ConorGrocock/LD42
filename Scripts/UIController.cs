@@ -15,9 +15,9 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        gc.player.OnAmmoCountChanged += PlayerAmmoCountChanged;
-        gc.player.OnAmmoTypeChanged += PlayerAmmoTypeChanged;
-        gc.player.OnDamageTaken += PlayerDamaged;
+//        gc.player.OnAmmoCountChanged += PlayerAmmoCountChanged;
+//        gc.player.OnAmmoTypeChanged += PlayerAmmoTypeChanged;
+//        gc.player.OnDamageTaken += PlayerDamaged;
         playerHealth.maxValue = gc.player.maxHealth;
         playerHealth.value = gc.player.maxHealth;
     }

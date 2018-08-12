@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -28,23 +27,10 @@ public class Player : MonoBehaviour
 
     public float speed = 0.1f;
 
-    public Action<int> OnAmmoCountChanged;
-    public Action<TileType> OnAmmoTypeChanged;
-    public Action<float> OnDamageTaken;
+//    public Action<int> OnAmmoCountChanged;
+//    public Action<TileType> OnAmmoTypeChanged;
+//    public Action<float> OnDamageTaken;
     public Action OnDeath;
-
-    public Slider ammoSlider;
-    public TextMeshProUGUI ammoRemainingText;
-
-    private int lives = 3;
-    public GameObject livesPanel;
-    public Sprite fullHeartSprite;
-    public Sprite emptyHeartSprite;
-    private Image[] livesImages;
-    private List<TileType> seenTypes;
-
-    public Unlock unlockScript;
-    public float unlockUIOpenTime = 0.5f;
 
 //	Use this for initialization
     void Start()
@@ -56,8 +42,6 @@ public class Player : MonoBehaviour
         {
             ammoType.Add(t, 0f);
         }
-        livesImages = livesPanel.GetComponentsInChildren<Image>();
-        seenTypes = new List<TileType>();
         
         OnDeath += death;
     }
@@ -139,14 +123,6 @@ public class Player : MonoBehaviour
                 FireProjectile(mousePosition, chosenProjectile);
         }
 
-        ammoSlider.value = ammo / maxAmmo;
-        ammoRemainingText.text = ammo + " / " + maxAmmo;
-
-        for (int i = 0; i < livesImages.Length; i++)
-        {
-            livesImages[i].sprite = (lives - i >= 0) ? fullHeartSprite : emptyHeartSprite;
-        }
-
         if (Input.GetMouseButton(1) && ammo < maxAmmo)
         {
             MineTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -158,7 +134,7 @@ public class Player : MonoBehaviour
             if ((int) chosenProjectile >= Enum.GetValues(typeof(TileType)).Length) chosenProjectile = 0;
             if (chosenProjectile < 0) chosenProjectile = (TileType) Enum.GetValues(typeof(TileType)).Length - 1;
             
-            OnAmmoTypeChanged(chosenProjectile);
+            //OnAmmoTypeChanged(chosenProjectile);
         }
     }
 
@@ -173,7 +149,7 @@ public class Player : MonoBehaviour
             ammo += ammoPerTile;
             go.SetActive(false);
             
-            if(tile.type == chosenProjectile) OnAmmoCountChanged((int) ammoType[chosenProjectile]);
+            //if(tile.type == chosenProjectile) OnAmmoCountChanged((int) ammoType[chosenProjectile]);
         }
     }
 
@@ -192,7 +168,7 @@ public class Player : MonoBehaviour
         ammoType[projectileType]--;
         ammo--;
         shotCooldown = maxShotCooldown;
-        OnAmmoCountChanged((int) ammoType[projectileType]);
+        //OnAmmoCountChanged((int) ammoType[projectileType]);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -208,7 +184,7 @@ public class Player : MonoBehaviour
         Debug.Log(health);
 
         Destroy(proj.gameObject);
-        OnDamageTaken(health);
+        //OnDamageTaken(health);
         if (health <= 0) OnDeath();
     }
 
