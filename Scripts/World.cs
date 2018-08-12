@@ -9,6 +9,8 @@ public class World : MonoBehaviour
 	public int worldWidth;
 	public int worldHeight;
 
+	public Transform tilesParent;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -35,7 +37,7 @@ public class World : MonoBehaviour
 			{
 				GameObject obj = Instantiate(getRandomTile(tiles));
 				obj.transform.position = new Vector3((width/2)-i,(height/2)-j,1);
-				obj.transform.parent = this.gameObject.transform;
+				obj.transform.parent = tilesParent;
 				obj.name = "X:" + i + " Y: " + j;
 				objects[i, j] = obj;
 			}
@@ -54,5 +56,10 @@ public class World : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public Vector3 getRandomPosition()
+	{
+		return new Vector3((worldWidth/2)-Random.RandomRange(0, worldWidth),(worldHeight/2)-Random.RandomRange(0, worldHeight));
 	}
 }
