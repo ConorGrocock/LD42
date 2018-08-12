@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4844612330480888}
   - component: {fileID: 212263602544749260}
+  - component: {fileID: 61742951933785258}
   m_Layer: 0
   m_Name: Renderer
   m_TagString: Untagged
@@ -35,7 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4036750941942848}
-  - component: {fileID: 114577247733855930}
+  - component: {fileID: 114547847351170012}
   m_Layer: 0
   m_Name: Blue_Projectile
   m_TagString: Untagged
@@ -51,7 +52,7 @@ Transform:
   m_GameObject: {fileID: 1983841832376710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4844612330480888}
   m_Father: {fileID: 0}
@@ -70,7 +71,32 @@ Transform:
   m_Father: {fileID: 4036750941942848}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114577247733855930
+--- !u!61 &61742951933785258
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1103838364393130}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.16}
+  m_EdgeRadius: 0
+--- !u!114 &114547847351170012
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,10 +104,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1983841832376710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f121528f543f5bf4faf222dca6266e93, type: 3}
+  m_Script: {fileID: 11500000, guid: fd480e3a7c7232449be450be2841ebb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  Direction: {x: 0, y: 0, z: 0}
+  Type: 1
+  speed: 10
+  timeToLive: 5
+  damage: 5
+  firedBy: 0
 --- !u!212 &212263602544749260
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -117,7 +148,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2cd197ba4cb36f4e998ba8cdb99d27c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 938be7627445d634494235adae825df1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

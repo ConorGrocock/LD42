@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
+    [SerializeField] public World world;
 
-	[SerializeField]
-	public World world;
-    
-	[SerializeField]
-	public Player player;
+    [SerializeField] public Player player;
 }
