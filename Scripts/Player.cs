@@ -178,22 +178,22 @@ public class Player : MonoBehaviour
             {
                 if (axisHorizontal > 0)
                 {
-                    playerSprite.sprite = playerSprites[3];
+                    playerSprite.sprite = playerSprites[3]; // Left
                 }
                 else
                 {
-                    playerSprite.sprite = playerSprites[2];
+                    playerSprite.sprite = playerSprites[2]; // Right
                 }
             }
             else
             {
                 if (axisVertical > 0)
                 {
-                    playerSprite.sprite = playerSprites[1];
+                    playerSprite.sprite = playerSprites[1]; // Up
                 }
                 else
                 {
-                    playerSprite.sprite = playerSprites[0];
+                    playerSprite.sprite = playerSprites[0]; // Down
                 }
             }
         }
