@@ -150,9 +150,6 @@ public class Player : MonoBehaviour
             MineTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
-        ammoSlider.value = ammo / maxAmmo;
-        ammoRemainingText.text = ammo + " / " + maxAmmo;
-
         for (int i = 0; i < livesImages.Length; i++)
         {
             livesImages[i].sprite = (lives - i >= 0) ? fullHeartSprite : emptyHeartSprite;
