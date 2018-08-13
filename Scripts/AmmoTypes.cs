@@ -29,6 +29,6 @@ public class AmmoTypes : MonoBehaviour
     private void typeChanged(TileType newType)
     {
         if (newType == type) GetComponent<Outline>().effectColor = new Color(180, 64, 0);
-        else GetComponent<Outline>().effectColor = new Color(0, 0, 0);
+        else GetComponent<Outline>().effectColor = new Color(31, 66, 138);
     }
 }
