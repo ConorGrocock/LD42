@@ -8,6 +8,7 @@ public class World : MonoBehaviour
     public int worldHeight;
 
     public Transform tilesParent;
+    public BoxCollider2D worldCollider;
 
     // Use this for initialization
     void Start()
@@ -40,9 +41,13 @@ public class World : MonoBehaviour
                 objects[i, j] = obj;
             }
         }
+        
+        worldCollider.size = new Vector3(width,height);
 
         return objects;
     }
+    
+    
 
     public GameObject getTileFromPosition(int x, int y)
     {
@@ -54,9 +59,9 @@ public class World : MonoBehaviour
         return worldObjects[arrayX, arrayY];
     }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 getWorldMidpoint()
     {
+        return new Vector3(0,0);
     }
 
     public Vector3 getRandomPosition()

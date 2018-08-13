@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     public Action<float> OnDamageTaken;
     public Action OnDeath;
     private long lastScroll;
-    private bool mouseButtonReleased = false;
+    private long lastBreak;
 
 //	Use this for initialization
     void Start()
@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
         ammoRemainingText.text = ammoCount.ToString() + "/" + maxAmmoPerType.ToString();
     }
 
-    GameObject getTile(Vector3 position, float offsetX, float offsetY)
+    GameObject getTile(Vector3 position, float offsetX = 0f, float offsetY = 0f)
     {
         return gc.world.getTileFromPosition(Mathf.RoundToInt(position.x + offsetX),
             Mathf.RoundToInt(position.y + offsetY));
@@ -121,22 +121,29 @@ public class Player : MonoBehaviour
     Vector3 checkCollision(Vector3 currentPosition, float padding, Vector3 oldPosition)
     {
         GameObject tile;
-        tile = getTile(oldPosition, 0, 0);
-        if (tile == null || !tile.active)
-            return
-                oldPosition +
-                Vector3.right; //Util.getNearestPointInPerimeter(getRectangle(tile), oldPosition.x, oldPosition.y);
-        tile = getTile(currentPosition, 0, 0);
+        tile = getTile(oldPosition);
+//        if (tile == null)
+//        {
+//            if (oldPosition + Vector3.up > (gc.world.worldHeight)) return oldPosition + Vector3.up;
+//            if (getTile(oldPosition + Vector3.down) != null) return oldPosition + Vector3.down;
+//            if (getTile(oldPosition + Vector3.left) != null) return oldPosition + Vector3.left;
+//            if (getTile(oldPosition + Vector3.right) != null) return oldPosition + Vector3.right;
+//            return currentPosition;
+//        }
+
+        if (tile != null && !tile.active)
+            return oldPosition + Vector3.right;
+        tile = getTile(currentPosition);
         if (tile == null || !tile.active)
             return oldPosition;
-        tile = getTile(currentPosition, padding, 0);
+        tile = getTile(currentPosition, padding);
         if (tile == null || !tile.active)
         {
             oldPosition.y = currentPosition.y;
             return oldPosition;
         }
 
-        tile = getTile(currentPosition, -padding, 0);
+        tile = getTile(currentPosition, -padding);
         if (tile == null || !tile.active)
         {
             oldPosition.y = currentPosition.y;
@@ -163,8 +170,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Input.GetMouseButton(1)) mouseButtonReleased = true;
-
         shotCooldown -= Time.deltaTime;
 
         var oldPos = transform.position;
@@ -176,27 +181,17 @@ public class Player : MonoBehaviour
 
         if (Mathf.Abs(axisHorizontal) > 0 || Mathf.Abs(axisVertical) > 0)
         {
-            if (Mathf.Abs(axisHorizontal) > Mathf.Abs(axisVertical))
+            if (axisVertical <= 0)
             {
-                if (axisHorizontal > 0)
-                {
-                    playerSprite.sprite = playerSprites[3]; // Left
-                }
-                else
-                {
-                    playerSprite.sprite = playerSprites[2]; // Right
-                }
+                if (axisHorizontal > 0) playerSprite.sprite = playerSprites[3]; // Left
+                else if (axisHorizontal < 0) playerSprite.sprite = playerSprites[2]; // Right
+                else playerSprite.sprite = playerSprites[0];
             }
-            else
+            else if (axisVertical > 0)
             {
-                if (axisVertical > 0)
-                {
-                    playerSprite.sprite = playerSprites[1]; // Up
-                }
-                else
-                {
-                    playerSprite.sprite = playerSprites[0]; // Down
-                }
+                if (axisVertical > 0) playerSprite.sprite = playerSprites[1]; // Up
+                else if (axisVertical < 0) playerSprite.sprite = playerSprites[4]; // Left
+                else playerSprite.sprite = playerSprites[5]; // Right
             }
         }
 
@@ -209,9 +204,10 @@ public class Player : MonoBehaviour
                 FireProjectile(mousePosition, chosenProjectile);
         }
 
-        if (Input.GetMouseButton(1) && mouseButtonReleased)
+        if (Input.GetMouseButton(1) && Util.currentTimeMillis() - lastBreak > 200)
         {
-            mouseButtonReleased = false;
+            lastBreak = Util.currentTimeMillis();
+
             MineTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
@@ -271,6 +267,14 @@ public class Player : MonoBehaviour
         ammoType[projectileType]--;
         shotCooldown = maxShotCooldown;
         OnAmmoCountChanged(projectileType, (int) ammoType[projectileType]);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.name == "World")
+        {
+            this.transform.position = gc.world.getWorldMidpoint();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
