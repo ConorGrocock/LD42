@@ -273,6 +273,14 @@ public class Player : MonoBehaviour
         OnAmmoCountChanged(projectileType, (int) ammoType[projectileType]);
     }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.name == "World")
+        {
+            this.transform.position = gc.world.getWorldMidpoint();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.transform.parent == null) return;
@@ -300,4 +308,6 @@ public class Player : MonoBehaviour
     {
         Time.timeScale = 0;
     }
+    
+    
 }
