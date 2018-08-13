@@ -27,5 +27,10 @@ namespace DefaultNamespace
             if (m == dl) return new Vector3(l, y, 0);
             return new Vector3(r, y, 0);
         }
+
+        public static long currentTimeMillis()
+        {
+            return DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,6 +51,8 @@ public class Player : MonoBehaviour
     public Action<TileType> OnAmmoTypeChanged;
     public Action<float> OnDamageTaken;
     public Action OnDeath;
+    private long lastScroll;
+    private bool mouseButtonReleased = false;
 
 //	Use this for initialization
     void Start()
@@ -160,6 +163,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Input.GetMouseButton(1)) mouseButtonReleased = true;
+
         shotCooldown -= Time.deltaTime;
 
         var oldPos = transform.position;
@@ -168,7 +173,7 @@ public class Player : MonoBehaviour
         float axisVertical = Input.GetAxisRaw("Vertical");
         position.x += axisHorizontal * speed * Time.deltaTime;
         position.y += axisVertical * speed * Time.deltaTime;
-        
+
         if (Mathf.Abs(axisHorizontal) > 0 || Mathf.Abs(axisVertical) > 0)
         {
             if (Mathf.Abs(axisHorizontal) > Mathf.Abs(axisVertical))
@@ -204,8 +209,9 @@ public class Player : MonoBehaviour
                 FireProjectile(mousePosition, chosenProjectile);
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && mouseButtonReleased)
         {
+            mouseButtonReleased = false;
             MineTile(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
@@ -216,9 +222,11 @@ public class Player : MonoBehaviour
 
         healthSlider.value = health / maxHealth;
 
-        if (Input.mouseScrollDelta.y != 0)
+        if (Math.Abs(Input.mouseScrollDelta.y) > 0.05f && Util.currentTimeMillis() - lastScroll > 100)
         {
-            chosenProjectile += (int) Input.mouseScrollDelta.y;
+            lastScroll = Util.currentTimeMillis();
+            int direction = Input.mouseScrollDelta.y < 0 ? -1 : 1;
+            chosenProjectile -= direction;
             if ((int) chosenProjectile >= Enum.GetValues(typeof(TileType)).Length) chosenProjectile = 0;
             if (chosenProjectile < 0) chosenProjectile = (TileType) Enum.GetValues(typeof(TileType)).Length - 1;
 
@@ -230,8 +238,9 @@ public class Player : MonoBehaviour
     {
         GameObject go =
             gc.world.getTileFromPosition(Mathf.RoundToInt(mousePosition.x), Mathf.RoundToInt(mousePosition.y));
+        if (go == null) return;
         Tile tile = go.GetComponent<Tile>();
-        if (go.activeSelf && ammoType[tile.type] + ammoPerTile <= maxAmmoPerType && tile.type == chosenProjectile)
+        if (go.activeSelf && ammoType[tile.type] + ammoPerTile <= maxAmmoPerType /* && tile.type == chosenProjectile*/)
         {
             ammoType[tile.type] += ammoPerTile;
             go.SetActive(false);
