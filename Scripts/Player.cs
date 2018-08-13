@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public float speed = 0.1f;
 
     public Slider ammoSlider;
+    public Image ammoSliderBar;
     public TextMeshProUGUI ammoRemainingText;
 
     private float lives = 3;
@@ -45,9 +46,9 @@ public class Player : MonoBehaviour
     public Unlock unlockScript;
     public float unlockUIOpenTime = 0.5f;
 
-    //    public Action<int> OnAmmoCountChanged;
-    //    public Action<TileType> OnAmmoTypeChanged;
-    //    public Action<float> OnDamageTaken;
+    public Action<int> OnAmmoCountChanged;
+    public Action<TileType> OnAmmoTypeChanged;
+    public Action<float> OnDamageTaken;
     public Action OnDeath;
 
 //	Use this for initialization
@@ -62,10 +63,42 @@ public class Player : MonoBehaviour
             ammoType.Add(t, 0f);
         }
         
+        OnAmmoCountChanged += AmmoCountChanged;
+        OnAmmoTypeChanged += AmmoTypeChanged;
         OnDeath += death;
 
         livesImages = livesPanel.GetComponentsInChildren<Image>();
         seenTypes = new List<TileType>();
+    }
+
+    private void AmmoTypeChanged(TileType tileType)
+    {
+        switch (tileType)
+        {
+            case TileType.Blue:
+                ammoSliderBar.color = Color.blue;
+                break;
+            case TileType.Green:
+                ammoSliderBar.color = Color.green;
+                break;
+            case TileType.Grey:
+                ammoSliderBar.color = Color.gray;
+                break;
+            case TileType.Orange:
+                ammoSliderBar.color = new Color(180,64,0);
+                break;
+            case TileType.Pink:
+                ammoSliderBar.color = Color.magenta;
+                break;
+        }
+
+        OnAmmoCountChanged((int) ammoType[tileType]);
+    }
+
+    private void AmmoCountChanged(int ammoCount)
+    {
+        ammoSlider.value = ammoCount / maxAmmoPerType;
+        ammoRemainingText.text = ammoCount.ToString() + "/" + maxAmmoPerType.ToString();
     }
 
     GameObject getTile(Vector3 position, float offsetX, float offsetY)
@@ -163,7 +196,7 @@ public class Player : MonoBehaviour
             if ((int) chosenProjectile >= Enum.GetValues(typeof(TileType)).Length) chosenProjectile = 0;
             if (chosenProjectile < 0) chosenProjectile = (TileType) Enum.GetValues(typeof(TileType)).Length - 1;
             
-            //OnAmmoTypeChanged(chosenProjectile);
+            OnAmmoTypeChanged(chosenProjectile);
         }
     }
 
@@ -176,6 +209,7 @@ public class Player : MonoBehaviour
         {
             ammoType[tile.type] += ammoPerTile;
             go.SetActive(false);
+            OnAmmoCountChanged((int) ammoType[tile.type]);
 
             //if(tile.type == chosenProjectile) OnAmmoCountChanged((int) ammoType[chosenProjectile]);
 
@@ -201,7 +235,7 @@ public class Player : MonoBehaviour
 
         ammoType[projectileType]--;
         shotCooldown = maxShotCooldown;
-        //OnAmmoCountChanged((int) ammoType[projectileType]);
+        OnAmmoCountChanged((int) ammoType[projectileType]);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
