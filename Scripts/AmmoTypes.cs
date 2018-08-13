@@ -13,6 +13,5 @@ public class AmmoTypes : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		gc.player.on
 	}
 }
