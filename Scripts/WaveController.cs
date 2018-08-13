@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaveController : MonoBehaviour
 {
@@ -18,10 +20,17 @@ public class WaveController : MonoBehaviour
     public int enemiesRemaining;
 
     public GameObject[] Enemies;
+    
+    public int waveCount = 0;
+    public TextMeshProUGUI waveCountText;
+    public Slider waveEnemyCount;
 
     void Start()
     {
         enemiesList = new List<GameObject>();
+        
+        waveCount++;
+        waveCountText.text = waveCount.ToString();
     }
 
     // Update is called once per frame
@@ -40,6 +49,7 @@ public class WaveController : MonoBehaviour
                     enemy.GetComponent<Enemy>().deathCallback += this.enemyDeathAction;
                     enemy.gameObject.transform.position = gc.world.getRandomPosition();
                     enemiesList.Add(enemy);
+                    enemiesRemaining = enemiesList.Count;
                 }
 
                 if (enemiesList.Count >= enemiesPerWave)
@@ -58,8 +68,13 @@ public class WaveController : MonoBehaviour
                 waveSpawningComplete = false;
                 waveInProgress = true;
                 enemiesList.Clear();
+
+                waveCount++;
+                waveCountText.text = waveCount.ToString();
             }
         }
+
+        waveEnemyCount.value = enemiesRemaining / enemiesPerWave;
     }
 
     public void enemyDeathAction(Enemy enemy)
