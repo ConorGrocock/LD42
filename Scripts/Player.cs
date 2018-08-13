@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     private float maxAmmoPerType = 100f;
     private float ammoPerTile = 5f;
 
-    private TileType chosenProjectile = TileType.Grey;
+    public TileType chosenProjectile = TileType.Grey;
     public GameObject[] projectiles;
     public Transform projectileParent;
 
