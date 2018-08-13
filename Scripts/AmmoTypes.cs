@@ -19,7 +19,8 @@ public class AmmoTypes : MonoBehaviour
 
     private void countChanged(TileType type, int newCount)
     {
-        if (type == this.type) {
+        if (type == this.type)
+        {
             TextMeshProUGUI textobj = GetComponentInChildren<TextMeshProUGUI>();
             textobj.text = newCount.ToString();
             textobj.ForceMeshUpdate(true);
@@ -29,6 +30,6 @@ public class AmmoTypes : MonoBehaviour
     private void typeChanged(TileType newType)
     {
         if (newType == type) GetComponent<Outline>().effectColor = new Color(180, 64, 0);
-        else GetComponent<Outline>().effectColor = new Color(31, 66, 138);
+        else GetComponent<Outline>().effectColor = new Color(0, 0, 0, 0);
     }
 }

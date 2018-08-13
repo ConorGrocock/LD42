@@ -131,34 +131,34 @@ public class Player : MonoBehaviour
 //            return currentPosition;
 //        }
 
-        if (!tile.active)
+        if (tile != null && !tile.active)
             return oldPosition + Vector3.right;
         tile = getTile(currentPosition);
-        if (!tile.active)
+        if (tile == null || !tile.active)
             return oldPosition;
         tile = getTile(currentPosition, padding);
-        if (!tile.active)
+        if (tile == null || !tile.active)
         {
             oldPosition.y = currentPosition.y;
             return oldPosition;
         }
 
         tile = getTile(currentPosition, -padding);
-        if (!tile.active)
+        if (tile == null || !tile.active)
         {
             oldPosition.y = currentPosition.y;
             return oldPosition;
         }
 
         tile = getTile(currentPosition, 0, padding);
-        if (!tile.active)
+        if (tile == null || !tile.active)
         {
             oldPosition.x = currentPosition.x;
             return oldPosition;
         }
 
         tile = getTile(currentPosition, 0, -padding);
-        if (!tile.active)
+        if (tile == null || !tile.active)
         {
             oldPosition.x = currentPosition.x;
             return oldPosition;
@@ -181,27 +181,17 @@ public class Player : MonoBehaviour
 
         if (Mathf.Abs(axisHorizontal) > 0 || Mathf.Abs(axisVertical) > 0)
         {
-            if (Mathf.Abs(axisHorizontal) > Mathf.Abs(axisVertical))
+            if (axisVertical <= 0)
             {
-                if (axisHorizontal > 0)
-                {
-                    playerSprite.sprite = playerSprites[3]; // Left
-                }
-                else
-                {
-                    playerSprite.sprite = playerSprites[2]; // Right
-                }
+                if (axisHorizontal > 0) playerSprite.sprite = playerSprites[3]; // Left
+                else if (axisHorizontal < 0) playerSprite.sprite = playerSprites[2]; // Right
+                else playerSprite.sprite = playerSprites[0];
             }
-            else
+            else if (axisVertical > 0)
             {
-                if (axisVertical > 0)
-                {
-                    playerSprite.sprite = playerSprites[1]; // Up
-                }
-                else
-                {
-                    playerSprite.sprite = playerSprites[0]; // Down
-                }
+                if (axisVertical > 0) playerSprite.sprite = playerSprites[1]; // Up
+                else if (axisVertical < 0) playerSprite.sprite = playerSprites[4]; // Left
+                else playerSprite.sprite = playerSprites[5]; // Right
             }
         }
 
@@ -314,6 +304,4 @@ public class Player : MonoBehaviour
     {
         Time.timeScale = 0;
     }
-    
-    
 }
