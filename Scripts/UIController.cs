@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public GameController gc;
-    
+
     public TextMeshProUGUI AmmoType;
     public TextMeshProUGUI AmmoCount;
     public Slider playerHealth;
@@ -28,6 +26,7 @@ public class UIController : MonoBehaviour
     }
 
     private readonly String[] ammoTypeStrings = Enum.GetNames(typeof(TileType));
+
     private void PlayerAmmoTypeChanged(TileType tileType)
     {
         AmmoType.text = ammoTypeStrings[(int) tileType];
