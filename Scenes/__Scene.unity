@@ -5166,6 +5166,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
+        type: 2}
+      propertyPath: playerSprites.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4237668731358438, guid: 4ed05f455f8be884cabaef8ee810316c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5243,6 +5248,18 @@ Prefab:
       propertyPath: m_AllowDynamicResolution
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
+        type: 2}
+      propertyPath: playerSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6bce166a5f7d85647b494bae1a21ed5e,
+        type: 3}
+    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
+        type: 2}
+      propertyPath: playerSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 66e0ffa15de0f1c49b04c48e009700f0,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed05f455f8be884cabaef8ee810316c, type: 2}
   m_IsPrefabAsset: 0
