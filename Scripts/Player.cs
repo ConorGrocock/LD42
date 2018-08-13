@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
     public Unlock unlockScript;
     public float unlockUIOpenTime = 0.5f;
 
+    public Sprite[] playerSprites;
+    public SpriteRenderer playerSprite;
+
     public Action<TileType, int> OnAmmoCountChanged;
     public Action<TileType> OnAmmoTypeChanged;
     public Action<float> OnDamageTaken;
@@ -165,6 +168,32 @@ public class Player : MonoBehaviour
         float axisVertical = Input.GetAxisRaw("Vertical");
         position.x += axisHorizontal * speed * Time.deltaTime;
         position.y += axisVertical * speed * Time.deltaTime;
+        
+        if (Mathf.Abs(axisHorizontal) > 0 || Mathf.Abs(axisVertical) > 0)
+        {
+            if (Mathf.Abs(axisHorizontal) > Mathf.Abs(axisVertical))
+            {
+                if (axisHorizontal > 0)
+                {
+                    playerSprite.sprite = playerSprites[3]; // Left
+                }
+                else
+                {
+                    playerSprite.sprite = playerSprites[2]; // Right
+                }
+            }
+            else
+            {
+                if (axisVertical > 0)
+                {
+                    playerSprite.sprite = playerSprites[1]; // Up
+                }
+                else
+                {
+                    playerSprite.sprite = playerSprites[0]; // Down
+                }
+            }
+        }
 
         transform.position = checkCollision(position, 0.3f, oldPos);
 
