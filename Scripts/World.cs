@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class World : MonoBehaviour
 {
@@ -48,6 +46,7 @@ public class World : MonoBehaviour
 
     public GameObject getTileFromPosition(int x, int y)
     {
+        if (worldObjects == null) return null;
         int arrayX = (worldWidth / 2) - x;
         int arrayY = (worldHeight / 2) - y;
         if (arrayX < 0 || arrayX >= worldObjects.GetLength(0)) return null;

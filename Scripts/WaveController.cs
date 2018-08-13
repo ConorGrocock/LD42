@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +19,7 @@ public class WaveController : MonoBehaviour
     public int enemiesRemaining;
 
     public GameObject[] Enemies;
-    
+
     public int waveCount = 0;
     public TextMeshProUGUI waveCountText;
     public Slider waveEnemyCount;
@@ -28,7 +27,7 @@ public class WaveController : MonoBehaviour
     void Start()
     {
         enemiesList = new List<Enemy>();
-        
+
         waveCount++;
         waveCountText.text = waveCount.ToString();
         enemiesRemaining = (int) enemiesPerWave;
@@ -50,7 +49,7 @@ public class WaveController : MonoBehaviour
                     enemy.GetComponent<Enemy>().deathCallback += this.enemyDeathAction;
                     enemy.gameObject.transform.position = gc.world.getRandomPosition();
                     enemy.transform.parent = this.transform;
-                    
+
                     enemiesList.Add(enemy.GetComponent<Enemy>());
                     enemiesRemaining--;
                 }

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class UIFill : MonoBehaviour
 {
@@ -21,20 +19,21 @@ public class UIFill : MonoBehaviour
     private float openTime;
     private float openTimer;
 
-	void Init ()
+    void Init()
     {
         animator = GetComponent<Animator>();
         text = GetComponent<TextMeshProUGUI>();
         displayImage = GetComponent<Image>();
-        
+
         Close();
-	}
-	
-	void Update ()
+    }
+
+    void Update()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (openTime != 0.0f && (stateInfo.nameHash == openHash || stateInfo.nameHash == nameOpenHash) && stateInfo.normalizedTime >= 1.0f)
+        if (openTime != 0.0f && (stateInfo.nameHash == openHash || stateInfo.nameHash == nameOpenHash) &&
+            stateInfo.normalizedTime >= 1.0f)
         {
             openTimer += Time.deltaTime;
 
@@ -46,11 +45,12 @@ public class UIFill : MonoBehaviour
             }
         }
 
-        if ((stateInfo.nameHash == closeHash || stateInfo.nameHash == nameCloseHash) && stateInfo.normalizedTime >= 1.0f)
+        if ((stateInfo.nameHash == closeHash || stateInfo.nameHash == nameCloseHash) &&
+            stateInfo.normalizedTime >= 1.0f)
         {
             gameObject.SetActive(false);
         }
-	}
+    }
 
     public void Open(float openTime, string projectileName, Sprite displaySprite)
     {

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,7 +46,7 @@ public class Player : MonoBehaviour
     public Sprite[] playerSprites;
     public SpriteRenderer playerSprite;
 
-    public Action<int> OnAmmoCountChanged;
+    public Action<TileType, int> OnAmmoCountChanged;
     public Action<TileType> OnAmmoTypeChanged;
     public Action<float> OnDamageTaken;
     public Action OnDeath;
@@ -65,7 +62,7 @@ public class Player : MonoBehaviour
         {
             ammoType.Add(t, 0f);
         }
-        
+
         OnAmmoCountChanged += AmmoCountChanged;
         OnAmmoTypeChanged += AmmoTypeChanged;
         OnDeath += death;
@@ -88,17 +85,17 @@ public class Player : MonoBehaviour
                 ammoSliderBar.color = Color.gray;
                 break;
             case TileType.Orange:
-                ammoSliderBar.color = new Color(180,64,0);
+                ammoSliderBar.color = new Color(180, 64, 0);
                 break;
             case TileType.Pink:
                 ammoSliderBar.color = Color.magenta;
                 break;
         }
 
-        OnAmmoCountChanged((int) ammoType[tileType]);
+        OnAmmoCountChanged(tileType, (int) ammoType[tileType]);
     }
 
-    private void AmmoCountChanged(int ammoCount)
+    private void AmmoCountChanged(TileType type, int ammoCount)
     {
         ammoSlider.value = ammoCount / maxAmmoPerType;
         ammoRemainingText.text = ammoCount.ToString() + "/" + maxAmmoPerType.ToString();
@@ -224,7 +221,7 @@ public class Player : MonoBehaviour
             chosenProjectile += (int) Input.mouseScrollDelta.y;
             if ((int) chosenProjectile >= Enum.GetValues(typeof(TileType)).Length) chosenProjectile = 0;
             if (chosenProjectile < 0) chosenProjectile = (TileType) Enum.GetValues(typeof(TileType)).Length - 1;
-            
+
             OnAmmoTypeChanged(chosenProjectile);
         }
     }
@@ -238,7 +235,7 @@ public class Player : MonoBehaviour
         {
             ammoType[tile.type] += ammoPerTile;
             go.SetActive(false);
-            OnAmmoCountChanged((int) ammoType[tile.type]);
+            OnAmmoCountChanged(tile.type, (int) ammoType[tile.type]);
 
             //if(tile.type == chosenProjectile) OnAmmoCountChanged((int) ammoType[chosenProjectile]);
 
@@ -264,7 +261,7 @@ public class Player : MonoBehaviour
 
         ammoType[projectileType]--;
         shotCooldown = maxShotCooldown;
-        OnAmmoCountChanged((int) ammoType[projectileType]);
+        OnAmmoCountChanged(projectileType, (int) ammoType[projectileType]);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
