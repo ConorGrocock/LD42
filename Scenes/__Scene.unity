@@ -1962,11 +1962,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 774442444}
   m_CullTransparentMesh: 0
---- !u!212 &898740917 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 212844974531539348, guid: 4ed05f455f8be884cabaef8ee810316c,
-    type: 2}
-  m_PrefabInternal: {fileID: 2079758742}
 --- !u!1 &903823337
 GameObject:
   m_ObjectHideFlags: 0
@@ -5048,11 +5043,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
-        type: 2}
-      propertyPath: playerSprites.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4237668731358438, guid: 4ed05f455f8be884cabaef8ee810316c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5092,41 +5082,9 @@ Prefab:
       objectReference: {fileID: 1629522908}
     - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
         type: 2}
-      propertyPath: unlockScript
-      value: 
-      objectReference: {fileID: 325352800}
-    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
-        type: 2}
-      propertyPath: emptyHeartSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 49777b11fae335f4c9f01397eba25f70,
-        type: 3}
-    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
-        type: 2}
-      propertyPath: fullHeartSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 9b94130e504bde044aee1490fb4002b6,
-        type: 3}
-    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
-        type: 2}
-      propertyPath: livesPanel
-      value: 
-      objectReference: {fileID: 1000545065}
-    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
-        type: 2}
-      propertyPath: ammoRemainingText
-      value: 
-      objectReference: {fileID: 905177950}
-    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
-        type: 2}
       propertyPath: ammoSlider
       value: 
       objectReference: {fileID: 604603380}
-    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
-        type: 2}
-      propertyPath: healthSlider
-      value: 
-      objectReference: {fileID: 1349945466}
     - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
         type: 2}
       propertyPath: ammoSliderBar
@@ -5134,33 +5092,24 @@ Prefab:
       objectReference: {fileID: 1065120311}
     - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
         type: 2}
-      propertyPath: playerSprites.Array.data[0]
+      propertyPath: ammoRemainingText
       value: 
-      objectReference: {fileID: 21300000, guid: c91fb9dd27f883749abdea08fa2c6064,
-        type: 3}
+      objectReference: {fileID: 905177950}
     - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
         type: 2}
-      propertyPath: playerSprites.Array.data[1]
+      propertyPath: livesPanel
       value: 
-      objectReference: {fileID: 21300000, guid: f1bf0fee3b434ea4294f642c08e6bc55,
-        type: 3}
+      objectReference: {fileID: 1000545065}
     - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
         type: 2}
-      propertyPath: playerSprites.Array.data[2]
+      propertyPath: healthSlider
       value: 
-      objectReference: {fileID: 21300000, guid: 3abf881bc26d99746b1dfa58ba445d9a,
-        type: 3}
+      objectReference: {fileID: 1349945466}
     - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
         type: 2}
-      propertyPath: playerSprites.Array.data[3]
+      propertyPath: unlockScript
       value: 
-      objectReference: {fileID: 21300000, guid: 4bb3f1fec0711894d821c3a7edbffa33,
-        type: 3}
-    - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
-        type: 2}
-      propertyPath: playerSprite
-      value: 
-      objectReference: {fileID: 898740917}
+      objectReference: {fileID: 325352800}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed05f455f8be884cabaef8ee810316c, type: 2}
   m_IsPrefabAsset: 0

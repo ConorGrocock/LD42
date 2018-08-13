@@ -207,15 +207,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
+  chosenProjectile: 0
   projectiles:
   - {fileID: 1423641028570572, guid: a869368c3d64c614da0c58a82af5f42d, type: 2}
-  - {fileID: 1537485127987060, guid: 3e90c35c5a2e26944b1d3f1f778062e3, type: 2}
   - {fileID: 1983841832376710, guid: 96dc76d375bfe644380213af1b848525, type: 2}
+  - {fileID: 1537485127987060, guid: 3e90c35c5a2e26944b1d3f1f778062e3, type: 2}
   - {fileID: 1979051562346728, guid: 2c116f0b0fb4a8a43aea941e4f2a297c, type: 2}
   - {fileID: 1868488417125062, guid: d5a4e96a7ddb1e742a6848deb9fc392e, type: 2}
   projectileParent: {fileID: 0}
   maxShotCooldown: 0.1
   speed: 10
+  ammoSlider: {fileID: 0}
+  ammoSliderBar: {fileID: 0}
+  ammoRemainingText: {fileID: 0}
+  maxLives: 3
+  livesPanel: {fileID: 0}
+  fullHeartSprite: {fileID: 21300000, guid: 9b94130e504bde044aee1490fb4002b6, type: 3}
+  emptyHeartSprite: {fileID: 21300000, guid: 49777b11fae335f4c9f01397eba25f70, type: 3}
+  healthSlider: {fileID: 0}
+  unlockScript: {fileID: 0}
+  unlockUIOpenTime: 0.5
+  playerSprites:
+  - {fileID: 21300000, guid: c91fb9dd27f883749abdea08fa2c6064, type: 3}
+  - {fileID: 21300000, guid: f1bf0fee3b434ea4294f642c08e6bc55, type: 3}
+  - {fileID: 21300000, guid: 3abf881bc26d99746b1dfa58ba445d9a, type: 3}
+  - {fileID: 21300000, guid: 4bb3f1fec0711894d821c3a7edbffa33, type: 3}
+  playerSprite: {fileID: 212844974531539348}
 --- !u!212 &212844974531539348
 SpriteRenderer:
   m_ObjectHideFlags: 1
