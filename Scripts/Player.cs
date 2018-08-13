@@ -175,7 +175,7 @@ public class Player : MonoBehaviour
         GameObject go =
             gc.world.getTileFromPosition(Mathf.RoundToInt(mousePosition.x), Mathf.RoundToInt(mousePosition.y));
         Tile tile = go.GetComponent<Tile>();
-        if (ammoType[tile.type] + ammoPerTile <= maxAmmoPerType && tile.type == chosenProjectile)
+        if (go.activeSelf && ammoType[tile.type] + ammoPerTile <= maxAmmoPerType && tile.type == chosenProjectile)
         {
             ammoType[tile.type] += ammoPerTile;
             go.SetActive(false);
