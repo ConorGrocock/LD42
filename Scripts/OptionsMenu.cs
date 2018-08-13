@@ -2,10 +2,12 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
+    public Slider volumeSlider;
     public TMP_Dropdown resolutionDropdown;
 
     private Resolution[] resolutions;
@@ -14,6 +16,9 @@ public class OptionsMenu : MonoBehaviour
     {
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
+        float volumeSliderValue;
+        audioMixer.GetFloat("Volume", out volumeSliderValue);
+        volumeSlider.value = volumeSliderValue;
 
         List<string> resOptions = new List<string>();
 
