@@ -16,7 +16,7 @@ public class WaveController : MonoBehaviour
     public bool waveInProgress = false;
     private bool waveSpawningComplete = false;
 
-    public List<GameObject> enemiesList;
+    public List<Enemy> enemiesList;
     public int enemiesRemaining;
 
     public GameObject[] Enemies;
@@ -27,10 +27,11 @@ public class WaveController : MonoBehaviour
 
     void Start()
     {
-        enemiesList = new List<GameObject>();
+        enemiesList = new List<Enemy>();
         
         waveCount++;
         waveCountText.text = waveCount.ToString();
+        enemiesRemaining = (int) enemiesPerWave;
     }
 
     // Update is called once per frame
@@ -39,7 +40,7 @@ public class WaveController : MonoBehaviour
         if (waveInProgress)
         {
             timeTillNextWave = timeBetweenWaves;
-            if (!waveSpawningComplete)
+            if (enemiesRemaining > 0)
             {
                 timeTillNextEnemy -= Time.deltaTime;
                 if (timeTillNextEnemy <= 0)
@@ -48,14 +49,10 @@ public class WaveController : MonoBehaviour
                     GameObject enemy = Instantiate(Enemies[Random.Range(0, Enemies.Length)]);
                     enemy.GetComponent<Enemy>().deathCallback += this.enemyDeathAction;
                     enemy.gameObject.transform.position = gc.world.getRandomPosition();
-                    enemiesList.Add(enemy);
-                    enemiesRemaining = enemiesList.Count;
-                }
-
-                if (enemiesList.Count >= enemiesPerWave)
-                {
-                    waveSpawningComplete = true;
-                    enemiesRemaining = enemiesList.Count;
+                    enemy.transform.parent = this.transform;
+                    
+                    enemiesList.Add(enemy.GetComponent<Enemy>());
+                    enemiesRemaining--;
                 }
             }
         }
@@ -68,18 +65,19 @@ public class WaveController : MonoBehaviour
                 waveSpawningComplete = false;
                 waveInProgress = true;
                 enemiesList.Clear();
+                enemiesRemaining = (int) enemiesPerWave;
 
                 waveCount++;
                 waveCountText.text = waveCount.ToString();
             }
         }
 
-        waveEnemyCount.value = enemiesRemaining / enemiesPerWave;
+        waveEnemyCount.value = enemiesList.Count / enemiesPerWave;
     }
 
     public void enemyDeathAction(Enemy enemy)
     {
-        enemiesRemaining--;
+        enemiesList.Remove(enemy);
 
         if (enemiesRemaining <= 0) waveInProgress = false;
     }
