@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundMusic : MonoBehaviour {
+public class BackgroundMusic : MonoBehaviour
+{
 
+	public static BackgroundMusic _instance; 
+	
 	private AudioSource _audioSource;
 	private void Awake()
 	{
+		if (_instance == null) _instance = this;
+		else Destroy(this.gameObject);
+		
 		DontDestroyOnLoad(transform.gameObject);
 		_audioSource = GetComponent<AudioSource>();
 	}

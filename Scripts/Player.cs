@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -302,6 +303,6 @@ public class Player : MonoBehaviour
 
     void death()
     {
-        Time.timeScale = 0;
+        SceneManager.LoadScene("_GameOver");
     }
 }

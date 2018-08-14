@@ -1550,7 +1550,7 @@ RectTransform:
   - {fileID: 325352798}
   - {fileID: 1611776920}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1793,7 +1793,7 @@ Transform:
   - {fileID: 1629522908}
   - {fileID: 1196834297}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &739270770
 BoxCollider2D:
@@ -2064,7 +2064,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &905177948
 GameObject:
@@ -2599,7 +2599,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1000545065
 GameObject:
@@ -3938,7 +3938,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1611776919
 GameObject:
@@ -4028,11 +4028,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1660350717}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 30.13}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 7.8899994}
   m_LocalScale: {x: 3.4462044, y: 3.4462044, z: 3.4462044}
   m_Children: []
-  m_Father: {fileID: 2079758743}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1660350719
@@ -5201,7 +5201,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4237668731358438, guid: 4ed05f455f8be884cabaef8ee810316c, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114465788394476340, guid: 4ed05f455f8be884cabaef8ee810316c,
         type: 2}
@@ -5263,11 +5263,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed05f455f8be884cabaef8ee810316c, type: 2}
   m_IsPrefabAsset: 0
---- !u!4 &2079758743 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4340529785419024, guid: 4ed05f455f8be884cabaef8ee810316c,
-    type: 2}
-  m_PrefabInternal: {fileID: 2079758742}
 --- !u!1 &2109048356
 GameObject:
   m_ObjectHideFlags: 0
